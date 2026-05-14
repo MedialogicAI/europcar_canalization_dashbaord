@@ -1,0 +1,20 @@
+# Smoke-test catalog for PHP 7.4 -> 8.3 migration.
+#
+# Format: METHOD<TAB>PATH<TAB>EXPECTED_STATUS<TAB>EXPECTED_SUBSTRING_OR_-
+# Lines starting with '#' or blank are ignored.
+# EXPECTED_SUBSTRING is a literal string that MUST appear in the response body.
+# Use '-' for no substring check.
+#
+# A URL PASSES if all of these are true:
+#   1. HTTP status code matches EXPECTED_STATUS
+#   2. Response body does NOT contain: Fatal error | Parse error | Uncaught
+#      (case-sensitive — those are PHP error markers, not user content)
+#   3. Response body CONTAINS the EXPECTED_SUBSTRING (if not '-')
+#
+GET	/	200	<html
+GET	/index.php	200	<html
+GET	/login.php	200	<html
+GET	/dashboard2/	200	<html
+GET	/dashboard2/index.html	200	<html
+GET	/test_active.php	200	1
+GET	/dashboard2/ci/index.php/SmokeProbe	404	404 Page Not Found
