@@ -1,6 +1,6 @@
 # Europcar Canalization Dashboard
 
-Internal dashboard for Europcar's canalization / channeling workflow, built for [MedialogicAI](https://medialogicai.it). Active production application running on PHP 8.3 + MariaDB.
+Internal dashboard for Europcar's canalization / channeling workflow, built for [Medialogic AI](https://medialogicai.it). Active production application running on PHP 8.3 + MariaDB.
 
 ## What this is
 
@@ -121,8 +121,8 @@ These items predate the migration but were surfaced during it. **Address before 
 
 ## License
 
-Proprietary — MedialogicAI / Vincix Group. Not for public distribution.
+Proprietary — Medialogic AI. Not for public distribution.
 
 ## Contact
 
-[Krishna Mallam](mailto:kmallam@medialogicai.it) — MedialogicAI
+[Krishna Mallam](mailto:kmallam@medialogicai.it) — Medialogic AI

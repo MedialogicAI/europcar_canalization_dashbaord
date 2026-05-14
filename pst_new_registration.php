@@ -252,11 +252,11 @@ $registr_id_2nd = registra_utente_dati($nomer, $cognomer, $indirizzo, $nazione, 
 
 
 if ($registr_id_2nd > 0){
-echo ("<script> $('#msg_out').html('Registrazione Utente Avvenuta con successo. Occorre attendere l\'abilitazione da parte di un operatore vincix per effettuare il login.').css('color', 'Black'); </script>");
+echo ("<script> $('#msg_out').html('Registrazione Utente Avvenuta con successo. Occorre attendere l\'abilitazione da parte di un operatore Medialogic AI per effettuare il login.').css('color', 'Black'); </script>");
 }
 else {
 	
-	echo ("<script> $('#msg_out').html('Problema di registrazione. Per informazioni assistenza.automi@vincix.com').css('color', 'Red'); </script>");
+	echo ("<script> $('#msg_out').html('Problema di registrazione. Per informazioni assistenza.automi@medialogicai.it').css('color', 'Red'); </script>");
 	
 	}
 	
