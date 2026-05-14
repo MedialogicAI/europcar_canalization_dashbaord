@@ -1,5 +1,7 @@
 # PHP 7.4 → 8.3 Migration Plan
 
+> **Status: ✅ EXECUTED.** All 10 steps complete. Live since 2026-05-14 on PHP 8.3.31. Two post-sign-off regressions found and fixed (CI deprecation HTML leak, Excel export perms). See [MIGRATION_NOTES.md](MIGRATION_NOTES.md) for the running status, final test results, and what was actually done vs originally planned. This file is preserved as the historical plan and reference.
+
 **Scope:** PHP version upgrade only. No UI changes. No refactors. No feature changes. Just make the existing app run on 8.3 and prove it still works.
 
 ## Current state
