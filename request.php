@@ -377,7 +377,7 @@ $key_link_dinamico = md5(date("Y-m-d H:i:s"));
 										$myObj->esito_durc = $arrvaltojson["stato_richiesta"];  
 										$myObj->data_scadenza = $arr_field_cf['expire_date'];
 										if ($arrvaltojson["pdf_needed"] == 1){
-										  $myObj->pdf_file = "http://durc.vincix.com/downloader.php?streamfile=".$arrvaltojson["key_download_link_dinamico"];
+										  $myObj->pdf_file = "";
 										}
 										
 										$myJSON = json_encode($myObj); 
@@ -475,7 +475,6 @@ pdf_needed
 
 
 
-//INSERT INTO `customers_requests` (`id`, `accesskey`, `codice_fiscale`, `data_richiesta`, `data_evasione`, `email_richiedente`, `key_download_link_dinamico`, `purpose_id`, `pdf_needed`) VALUES (NULL, 'c84b4ed65d9f0adee820371f81f834e9', 'RTTRRT72P13B111N', '2018-08-21 00:00:00', NULL, 'ugo.fiasconaro@medialogicai.it', '', 'def_1', '1');
 
 
 
@@ -512,7 +511,6 @@ function esiste_il_record_composto($md5_accesskey, $cod_fiscale, $data_richiesta
     	$conn = new mysqli($servername, $username, $password, $dbname);		if ($conn->connect_error) {   die("Connection failed: " . $conn->connect_error); } 
     	
     	// Impose Query
-    	     //SELECT * FROM `customers_requests` WHERE `accesskey` LIKE 'c84b4ed65d9f0adee820371f81f834e9' AND `codice_fiscale` LIKE 'RTTRRT72P13B111N' AND `data_richiesta` = '2018-08-22 00:00:00' AND `email_richiedente` LIKE 'ugo.fiasconaro@medialogicai.it' AND `purpose_id` LIKE 'def_1' AND `pdf_needed` = 1 AND `dettaglio_chiamante` LIKE 'id_buyer'
 		$sql = "SELECT id FROM `customers_requests` WHERE `accesskey` LIKE '$md5_accesskey' AND `codice_fiscale` LIKE '$cod_fiscale' AND `data_richiesta` = '$data_richiesta' AND `email_richiedente` LIKE '$email_richiedente' AND `purpose_id` LIKE '$purpose_id' AND `pdf_needed` = '$pdfboolvalue' AND `dettaglio_chiamante` LIKE '$dettaglio_chiamante'";
     	$result = $conn->query($sql);
     
@@ -538,7 +536,6 @@ function sel_fields_to_transform_in_json ($id_select_json)
     	$conn = new mysqli($servername, $username, $password, $dbname);		if ($conn->connect_error) {   die("Connection failed: " . $conn->connect_error); } 
     	
     	// Impose Query
-    	     //SELECT * FROM `customers_requests` WHERE `accesskey` LIKE 'c84b4ed65d9f0adee820371f81f834e9' AND `codice_fiscale` LIKE 'RTTRRT72P13B111N' AND `data_richiesta` = '2018-08-22 00:00:00' AND `email_richiedente` LIKE 'ugo.fiasconaro@medialogicai.it' AND `purpose_id` LIKE 'def_1' AND `pdf_needed` = 1 AND `dettaglio_chiamante` LIKE 'id_buyer'
 		$sql = "SELECT * FROM `customers_requests` WHERE `id` = '$id_select_json'";
     	$result = $conn->query($sql);
     

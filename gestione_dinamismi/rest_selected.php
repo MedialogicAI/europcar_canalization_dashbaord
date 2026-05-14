@@ -55,9 +55,9 @@ if ($utenepriv["abilitazioni"] == 0) { 	exit ("User not enabled"); }
 													
 													
 													
-													$code_ex ='http://durc.vincix.com/request.php?accesskey='.$valarrcomptab["accesskey"].'&email_richiedente='.$valarrcomptab["default_req_email"].'&codice_fiscale=14586261001&purpose_id=def_1&pdf_needed=1&dettaglio_chiamante=id_buyer';
-													
-													$example2export = '<h4>Example Key usage REST API</h4> <p> </p><pre><code>'.$code_ex.'</code></pre><p></p> <br>';
+													$code_ex = '';
+
+													$example2export = '';
 													
 													
 												 

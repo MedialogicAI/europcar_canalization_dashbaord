@@ -256,7 +256,7 @@ echo ("<script> $('#msg_out').html('Registrazione Utente Avvenuta con successo. 
 }
 else {
 	
-	echo ("<script> $('#msg_out').html('Problema di registrazione. Per informazioni assistenza.automi@medialogicai.it').css('color', 'Red'); </script>");
+	echo ("<script> $('#msg_out').html('Problema di registrazione. Per informazioni supporto@medialogicai.it').css('color', 'Red'); </script>");
 	
 	}
 	
