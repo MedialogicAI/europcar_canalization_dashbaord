@@ -1,0 +1,9 @@
+<?php
+$servername = "127.0.0.1";
+$username   = "DB_USER";
+$password   = "DB_PASSWORD";
+$dbname     = "DB_NAME";
+
+define('DEBUG', 1);
+
+?>

@@ -1,0 +1,30 @@
+# --- Vendored third-party (re-installable, large) ---
+vendor/
+bower_components/
+pma/
+
+# --- Runtime upload artifacts ---
+dashboard2/uploads/
+
+# --- Large pre-existing archives ---
+dashboard2-18-03-2024.zip
+
+# --- Logs / runtime ---
+*.log
+controlli_automa/log/
+
+# --- OS / editor cruft ---
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# --- Credentials (commit *.example templates instead) ---
+dbconf.php
+dbtest.php
+dashboard2/ci/application/config/database.php
+dashboard2_old/ci/application/config/database.php
+api/classes/dao/parent/DBConnector.class.php

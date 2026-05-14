@@ -1,0 +1,17 @@
+<?php
+$servername = "127.0.0.1";
+$username = "DB_USER";
+$password = "DB_PASSWORD";
+$dbname = "DB_NAME";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+echo "Connected successfully to " . $dbname . " on " . $servername . "<br>";
+echo "Server version: " . $conn->server_info . "<br>";
+
+$result = $conn->query("SELECT COUNT(*) AS t FROM information_schema.tables WHERE table_schema='ataraxia'");
+$row = $result->fetch_assoc();
+echo "Tables in ataraxia: " . $row['t'];
+$conn->close();

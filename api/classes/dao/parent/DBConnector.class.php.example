@@ -1,0 +1,41 @@
+<?php
+class DBConnector
+{
+    // For local use
+    const DB_HOST = '127.0.0.1';
+    const DB_NAME = 'DB_NAME';
+    const DB_USER = 'DB_USER';
+    const DB_PASSWORD = 'DB_PASSWORD';
+    
+    var $myconn = null;
+    var $pdo = null;
+    
+    function connect() {
+        $con = mysqli_connect(self::DB_HOST, self::DB_USER, self::DB_PASSWORD, self::DB_NAME);
+        if (!$con) {
+            die('Could not connect to database!');
+        } else {
+            $this->myconn = $con;
+        }
+        return $this->myconn;
+    }
+    
+    function connectPDO(){
+        $conStr = sprintf("mysql:host=%s;dbname=%s", self::DB_HOST, self::DB_NAME);
+        try {
+            $this->pdo = new PDO($conStr, self::DB_USER, self::DB_PASSWORD);
+            return $this->pdo;
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    function close($con){
+        return mysqli_close($con);
+    }
+    
+    function closePDO(){
+        $this->pdo=null;
+    }
+}
+
