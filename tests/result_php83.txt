@@ -1,4 +1,4 @@
-BASE_URL=http://127.0.0.1:8083
+BASE_URL=http://127.0.0.1
 RESULT	HTTP	METHOD	URL
 PASS	200	GET	/
 PASS	200	GET	/index.php
@@ -7,5 +7,6 @@ PASS	200	GET	/dashboard2/
 PASS	200	GET	/dashboard2/index.html
 PASS	200	GET	/test_active.php
 PASS	404	GET	/dashboard2/ci/index.php/SmokeProbe
+PASS	200	GET	/dashboard2/ci/index.php/AppController/getAppCfg
 
-7/7 passed
+8/8 passed

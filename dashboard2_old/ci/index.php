@@ -67,7 +67,11 @@
 switch (ENVIRONMENT)
 {
 	case 'development':
-		error_reporting(-1);
+		// PHP 8.2+ deprecates dynamic property creation, which CI 3.1.13 still
+		// triggers internally (CI_Controller assigns benchmark/router/etc on
+		// the fly). Excluding E_DEPRECATED keeps real errors visible while
+		// preventing CI's error_handler from polluting JSON responses with HTML.
+		error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 		ini_set('display_errors', 1);
 	break;
 

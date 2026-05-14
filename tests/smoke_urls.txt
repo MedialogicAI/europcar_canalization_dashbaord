@@ -18,3 +18,4 @@ GET	/dashboard2/	200	<html
 GET	/dashboard2/index.html	200	<html
 GET	/test_active.php	200	1
 GET	/dashboard2/ci/index.php/SmokeProbe	404	404 Page Not Found
+GET	/dashboard2/ci/index.php/AppController/getAppCfg	200	"success":true

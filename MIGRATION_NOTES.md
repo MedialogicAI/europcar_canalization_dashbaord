@@ -47,6 +47,28 @@
 - File is not `include`d from anywhere — only reachable by direct URL hit
 - **Action:** out of scope. Suggest removing the file or moving it out of webroot.
 
+### 1b. CI deprecation HTML leaking into JSON responses (FIXED)
+**Symptom**: ExtJS dashboard at `/dashboard2/` showed a blank screen. Console:
+```
+Uncaught Error: You're trying to decode an invalid JSON String:
+<div style="..."><h4>A PHP Error was encountered</h4>...
+```
+**Root cause**: PHP 8.2+ deprecates dynamic property creation. CI 3.1.13 still
+assigns dynamic properties internally (`$this->benchmark`, `$this->router`,
+`$this->db`, etc. on `CI_Controller`). CI's `_error_handler` catches these
+E_DEPRECATED notices and renders them as HTML `<div>` blocks — which prepended
+to JSON API responses, breaking ExtJS's `JSON.decode`.
+**Fix**: In both `dashboard2/ci/index.php` and `dashboard2_old/ci/index.php`,
+the development-mode `error_reporting(-1)` was changed to
+`error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED)`. Real errors
+still surface; deprecation noise is suppressed.
+**Smoke runner hardened**: the regex was missing "A PHP Error was encountered"
+(CI's HTML notice marker). Added it. Also added
+`/dashboard2/ci/index.php/AppController/getAppCfg` to the catalog as a
+real JSON-payload endpoint that would have caught the issue immediately.
+Smoke set is now 8/8 PASS.
+**Commit**: pending (see git log).
+
 ### 2. `login.php:126` — PHP 8 Warning
 - `$_SESSION['username']` read without `isset()` guard → Warning (was a Notice in 7.4)
 - Page still returns HTTP 200 — non-blocking

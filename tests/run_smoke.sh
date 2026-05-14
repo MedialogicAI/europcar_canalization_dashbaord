@@ -48,10 +48,13 @@ while IFS=$'\t' read -r METHOD PATH_ EXPECTED_STATUS EXPECTED_SUBSTR; do
     reason="status=$HTTP_CODE expected=$EXPECTED_STATUS"
   fi
 
-  # PHP error markers must NOT be in the body
-  if grep -qE "Fatal error|Parse error|Uncaught " "$TMP_BODY"; then
+  # PHP error markers must NOT be in the body.
+  # "A PHP Error was encountered" is CodeIgniter's HTML-rendered notice
+  # block — it leaks deprecation/warning HTML into JSON API responses on
+  # PHP 8.2+ and breaks anything that parses the response as JSON.
+  if grep -qE "Fatal error|Parse error|Uncaught |A PHP Error was encountered" "$TMP_BODY"; then
     body_ok=0
-    err_line=$(grep -nE "Fatal error|Parse error|Uncaught " "$TMP_BODY" | head -1 | cut -c1-120)
+    err_line=$(grep -nE "Fatal error|Parse error|Uncaught |A PHP Error was encountered" "$TMP_BODY" | head -1 | cut -c1-120)
     [[ -n "$reason" ]] && reason="$reason; "
     reason="${reason}php_error=$err_line"
   else
