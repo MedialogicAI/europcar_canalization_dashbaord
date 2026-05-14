@@ -47,6 +47,37 @@
 - File is not `include`d from anywhere — only reachable by direct URL hit
 - **Action:** out of scope. Suggest removing the file or moving it out of webroot.
 
+### 1c. Excel export 500 — Apache user can't write to uploads/temp (FIXED)
+**Symptom**: `POST /dashboard2/ci/export/pratices/excel` → 500.
+Real error captured via temp trap in `index.php`:
+```
+Warning: ZipArchive::close(): Failure to create temporary file:
+  Permission denied in .../Writer/Excel2007.php on line 388
+Uncaught PHPExcel_Writer_Exception: Could not close zip file
+  .../dashboard2/uploads/temp/export-N6S1778758173E0B.xlsx.
+```
+**Root cause**: Filesystem permissions, NOT a PHP 8.3 issue. The old
+server presumably ran PHP as the `ataraxia` user (suPHP / PHP-FPM with
+custom pool / mpm_itk); the new mod-php8.3 stack runs as `www-data`.
+`dashboard2/uploads/temp/` was mode 755 owned by `ataraxia:ataraxia` —
+`www-data` had no write access. Pre-existing exports in the dir are
+all owned by `ataraxia` (last successful write 2024-12-20),
+confirming the user-change hypothesis.
+**Fix applied (no sudo needed)**: `chmod g+ws` on the dirs the
+framework writes to, so they're now mode `2775` (group rwx + setgid
+so new files inherit the `ataraxia` group):
+- `dashboard2/uploads/` and `dashboard2/uploads/temp/`
+- `dashboard2/ci/application/cache/` and `logs/`
+- `dashboard2_old/ci/application/cache/` and `logs/`
+**Fix you must apply (one sudo)**: add `www-data` to the `ataraxia`
+group, then restart Apache so it picks up the new membership:
+```bash
+sudo usermod -aG ataraxia www-data
+sudo systemctl restart apache2
+```
+After that, `id www-data` will show `ataraxia` in groups, and Excel
+exports will succeed.
+
 ### 1b. CI deprecation HTML leaking into JSON responses (FIXED)
 **Symptom**: ExtJS dashboard at `/dashboard2/` showed a blank screen. Console:
 ```
